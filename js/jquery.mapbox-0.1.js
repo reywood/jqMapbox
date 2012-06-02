@@ -9,16 +9,16 @@
  * @license GNU General Public License v3 <http://www.gnu.org/licenses/>
  */
 
-(function($, window, document, undefined) {
+(function($, window, self, document, undefined) {
 	var defaults = {
-			overlayColor:			"#000",		// (string) Color of overlay
-			overlayOpacity:			0.8,		// (decimal) Opacity of overlay: 0.0 - 1.0
-			iframeWidth:			800,
-			iframeHeight:			600,
-			imageBtnClose:			"/images/mapbox-btn-close.gif",		// (string) Path and the name of the close btn
-			containerBorderSize:	10,			// (integer) Value of padding for #mapbox-iframe-container-padding in CSS file
-			containerResizeSpeed:	400,		// (integer) Duration of animation when opening in miliseconds
-			keyToClose:				"c"			// (string) Keyboard shortcut to close the mapbox dialog. ESC and "x" will also close dialog.
+			overlayColor:		"#000",
+			overlayOpacity:		0.8,
+			iframeWidth:		800,
+			iframeHeight:		600,
+			imageBtnClose:		"/images/mapbox-btn-close.gif",
+			dialogPadding:		10,		// Value of padding for #mapbox-iframe-container-padding in CSS file
+			resizeSpeed:		400,	// Duration of animation when opening in miliseconds
+			keyToClose:			"x"		// Keyboard shortcut to close the mapbox dialog. ESC will also close dialog.
 		};
 	
 	$.fn.mapbox = function(settings) {
@@ -58,7 +58,9 @@
 						'<div id="jquery-mapbox">' +
 							'<div id="mapbox-iframe-container">' +
 								'<div id="mapbox-iframe-container-padding">' +
-									'<iframe id="mapbox-iframe" src="/blank.html" width="' + settings.iframeWidth + '" height="' + settings.iframeHeight + '" scrolling="no" frameBorder="0" border="0" style="border: 0;"></iframe>' +
+									'<iframe id="mapbox-iframe" src="/blank.html" ' +
+										'width="' + settings.iframeWidth + '" height="' + settings.iframeHeight + '" ' +
+										'scrolling="no" frameBorder="0" border="0" style="border: 0;"></iframe>' +
 								'</div>' +
 							'</div>' +
 							'<div id="mapbox-footer">' +
@@ -121,14 +123,14 @@
 		};
 		
 		var animateResizingMapbox = function() {
-			var newWidth = (settings.iframeWidth + (settings.containerBorderSize * 2));
-			var newHeight = (settings.iframeHeight + (settings.containerBorderSize * 2));
+			var newWidth = (settings.iframeWidth + (settings.dialogPadding * 2));
+			var newHeight = (settings.iframeHeight + (settings.dialogPadding * 2));
 			
 			$("#mapbox-iframe-container").animate({
 					width: newWidth,
 					height: newHeight
 				},
-				settings.containerResizeSpeed,
+				settings.resizeSpeed,
 				function() {
 					showIframe();
 					showFooter();
@@ -162,19 +164,26 @@
 			var keyCode = (event) ? event.keyCode : window.event.keyCode;
 			var keyChar = String.fromCharCode(keyCode).toLowerCase();
 			
-			if (keyChar === settings.keyToClose || keyChar === "x" || isEscapeKeyCode(event, keyCode)) {
+			if (keyChar === settings.keyToClose || isEscapeKeyCode(event, keyCode)) {
 				closeDialogAndCleanUp();
 			}
 		};
 		
 		var isEscapeKeyCode = function(event, keyCode) {
-			if (event && event.DOM_VK_ESCAPE) {
-				return keyCode === event.DOM_VK_ESCAPE;
+			return keyCode === getEscapeKeyValue(event);
+		};
+		
+		var getEscapeKeyValue = function(event) {
+			if (typeof KeyEvent !== "undefined" && KeyEvent.DOM_VK_ESCAPE) {
+				return KeyEvent.DOM_VK_ESCAPE;
+			}
+			else if (event && event.DOM_VK_ESCAPE) {
+				return event.DOM_VK_ESCAPE;
 			}
 			else if (window.event) {
-				return keyCode === 27;
+				return 27;
 			}
-			return false;
+			return null;
 		};
 		
 		var closeDialogAndCleanUp = function() {
@@ -276,4 +285,4 @@
 		
 		return this.unbind("click").click(mapboxClickHandler);
 	};
-})(jQuery, window, document);
+})(jQuery, window, self, document);

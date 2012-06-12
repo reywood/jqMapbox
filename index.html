@@ -1,0 +1,74 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery Mapbox</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.mapbox-0.1.css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mapbox-0.1.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".mapbox").mapbox();
+		});
+	</script>
+</head>
+<body>
+
+<div id="main">
+
+	<h1>Mapbox</h1>
+
+	<p>
+		Mapbox is a jQuery plugin which shows a map in a modal dialog box, much like the well
+		known <a href="http://lokeshdhakar.com/projects/lightbox2/">Lightbox</a> jQuery plugin.
+	</p>
+
+	<hr/>
+
+	<h2>Example</h2>
+
+	<p>
+		Click on the link below to see an example:
+	</p>
+
+	<blockquote>
+		<a class="mapbox" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=san+diego,+ca&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=56.899383,104.941406&amp;ie=UTF8&amp;hq=&amp;hnear=San+Diego,+California&amp;t=m&amp;z=11&amp;ll=32.715329,-117.157255&amp;output=embed">
+			Show map
+		</a>
+	</blockquote>
+
+	<p>
+		The following snippets were used to create this link.
+	</p>
+
+	<p>
+		HTML:
+	</p>
+
+	<code>
+<pre><span style="color: #007000">&lt;a</span> <span style="color: #0000C0">class=</span><span style="background-color: #fff0f0">&quot;mapbox&quot;</span> <span style="color: #0000C0">href=</span><span style="background-color: #fff0f0">&quot;https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=san+diego,+ca&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=56.899383,104.941406&amp;ie=UTF8&amp;hq=&amp;hnear=San+Diego,+California&amp;t=m&amp;z=11&amp;ll=32.715329,-117.157255&amp;output=embed&quot;</span><span style="color: #007000">&gt;</span>Show map<span style="color: #007000">&lt;/a&gt;</span></pre>
+	</code>
+
+	<p>
+		JavaScript:
+	</p>
+
+	<code>
+<pre>$(<span style="color: #007020">document</span>).ready(<span style="color: #008000; font-weight: bold">function</span>() {
+	$(<span style="background-color: #fff0f0">&quot;.mapbox&quot;</span>).mapbox();
+});</pre>
+	</code>
+
+	<p>
+		Of course, you can use any CSS class name or indeed any jQuery selector you like to target links for Mapbox-ification.
+	</p>
+	
+</div>
+
+</body>
+</html>

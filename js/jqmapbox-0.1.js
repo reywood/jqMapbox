@@ -1,5 +1,5 @@
 /**
- * jQuery mapbox plugin
+ * jqMapbox plugin
  * Inspired by Lightbox2 (http://www.huddletogether.com/projects/lightbox2/)
  *
  * @author Sean Dwyer
@@ -15,7 +15,7 @@
 			overlayOpacity:		0.8,
 			mapWidth:			800,
 			mapHeight:			600,
-			imageBtnClose:		"images/mapbox-btn-close.gif",
+			imageBtnClose:		"images/jqmapbox-btn-close.gif",
 			resizeSpeed:		400,
 			keyToClose:			"x"
 		};
@@ -29,7 +29,7 @@
 			e.preventDefault();
 			
 			mapUrl = $(this).attr("href");
-			mapCaption = $(this).attr("data-mapbox-caption");
+			mapCaption = $(this).attr("data-jqmapbox-caption");
 			showMapbox();
 			
 			return false;
@@ -53,15 +53,15 @@
 		};
 		
 		var initDom = function() {
-			var html =	'<div id="jquery-mapbox-overlay"></div>' +
-						'<div id="jquery-mapbox">' +
-							'<div id="mapbox-iframe-container">' +
-								'<div id="mapbox-iframe-container-padding"></div>' +
+			var html =	'<div id="jqmapbox-overlay"></div>' +
+						'<div id="jqmapbox">' +
+							'<div id="jqmapbox-iframe-container">' +
+								'<div id="jqmapbox-iframe-container-padding"></div>' +
 							'</div>' +
-							'<div id="mapbox-footer">' +
-								'<div id="mapbox-caption"></div>' +
-								'<div id="mapbox-buttons">' +
-									'<a href="#" id="mapbox-close-button"><img src="' + settings.imageBtnClose + '"></a>' +
+							'<div id="jqmapbox-footer">' +
+								'<div id="jqmapbox-caption"></div>' +
+								'<div id="jqmapbox-buttons">' +
+									'<a href="#" id="jqmapbox-close-button"><img src="' + settings.imageBtnClose + '"/></a>' +
 								'</div>' +
 							'</div>' +
 						'</div>';
@@ -73,30 +73,30 @@
 			var pageSize = getPageSize();
 			var pageScroll = getPageScroll();
 			
-			$("#jquery-mapbox-overlay").css({
+			$("#jqmapbox-overlay").css({
 				width: pageSize.pageWidth,
 				height: pageSize.pageHeight
 			});
 			
-			$("#jquery-mapbox").css({
+			$("#jqmapbox").css({
 				top: pageScroll.scrollTop + (pageSize.windowHeight / 10),
 				left: pageScroll.scrollLeft
 			}).show();
 		};
 		
 		var showOverlay = function() {
-			$("#jquery-mapbox-overlay").css({
-				backgroundColor:	settings.overlayColor,
-				opacity:			settings.overlayOpacity
+			$("#jqmapbox-overlay").css({
+				backgroundColor: settings.overlayColor,
+				opacity: settings.overlayOpacity
 			}).fadeIn();
 		};
 		
 		var showDialog = function() {
-			$("#jquery-mapbox").show();
+			$("#jqmapbox").show();
 		};
 		
 		var initDialogCloseHandler = function() {
-			$("#jquery-mapbox-overlay, #jquery-mapbox, #mapbox-iframe-container, #mapbox-close-button img").click(function(e) {
+			$("#jqmapbox-overlay, #jqmapbox, #jqmapbox-iframe-container, #jqmapbox-close-button img").click(function(e) {
 				if (e.target === this) {
 					e.preventDefault();
 					closeDialogAndCleanUp();
@@ -112,52 +112,54 @@
 		};
 		
 		var loadMap = function() {
-			$("#mapbox-footer").hide();
-			
-			animateResizingMapbox();
+			animateResizingMapbox(function() {
+					showIframe();
+					showFooter();
+					enableKeyboardNavigation();
+				});
 		};
 		
-		var animateResizingMapbox = function() {
+		var animateResizingMapbox = function(onComplete) {
+			$("#jqmapbox-footer").hide();
+
+			$("#jqmapbox-iframe-container").animate(
+				getDialogWidthHeight(),
+				settings.resizeSpeed,
+				onComplete);
+
+			$("#jqmapbox-footer").css("width", settings.mapWidth);
+		};
+		
+		var getDialogWidthHeight = function() {
 			var newWidth = settings.mapWidth + getHorizontalPadding();
 			var newHeight = settings.mapHeight + getVerticalPadding();
 			
-			$("#mapbox-iframe-container").animate({
+			return {
 					width: newWidth,
 					height: newHeight
-				},
-				settings.resizeSpeed,
-				function() {
-					showIframe();
-					showFooter();
-				});
-
-			$("#mapbox-footer").css({
-				width: settings.mapWidth
-			});
+				};
 		};
 		
 		var getHorizontalPadding = function() {
-			var $container = $("#mapbox-iframe-container-padding");
+			var $container = $("#jqmapbox-iframe-container-padding");
 			return parseInt($container.css("padding-left"), 10) + parseInt($container.css("padding-right"), 10);
 		};
 		
 		var getVerticalPadding = function() {
-			var $container = $("#mapbox-iframe-container-padding");
+			var $container = $("#jqmapbox-iframe-container-padding");
 			return parseInt($container.css("padding-top"), 10) + parseInt($container.css("padding-bottom"), 10);
 		};
 
 		var showIframe = function() {
-			$("#mapbox-iframe-container-padding").html('<iframe id="mapbox-iframe" src="' + mapUrl + '" ' +
+			$("#jqmapbox-iframe-container-padding").html('<iframe id="jqmapbox-iframe" src="' + mapUrl + '" ' +
 										'width="' + settings.mapWidth + '" height="' + settings.mapHeight + '" ' +
 										'scrolling="no" frameBorder="0" border="0" style="border: 0;"></iframe>');
-			
-			enableKeyboardNavigation();
 		};
 		
 		var showFooter = function() {
-			$("#mapbox-caption").hide();
-			$("#mapbox-footer").slideDown("fast");
-			$("#mapbox-caption").text(mapCaption).show();
+			$("#jqmapbox-caption").hide();
+			$("#jqmapbox-footer").slideDown("fast");
+			$("#jqmapbox-caption").text(mapCaption).show();
 		}
 		
 		var enableKeyboardNavigation = function() {
@@ -195,9 +197,9 @@
 		};
 		
 		var closeDialogAndCleanUp = function() {
-			$("#jquery-mapbox").remove();
-			$("#jquery-mapbox-overlay").fadeOut(function() {
-				$("#jquery-mapbox-overlay").remove();
+			$("#jqmapbox").remove();
+			$("#jqmapbox-overlay").fadeOut(function() {
+				$("#jqmapbox-overlay").remove();
 			});
 			disableKeyboardNavigation();
 			showStubbornElements();
@@ -207,7 +209,7 @@
 			var $elements = $("embed, object, select, iframe");
 			$elements.each(function() {
 				var $this = $(this);
-				$this.attr("data-mapbox-visibility", $this.css("visibility"));
+				$this.attr("data-jqmapbox-visibility", $this.css("visibility"));
 			});
 			$elements.css("visibility", "hidden");
 		}
@@ -216,8 +218,8 @@
 			var $elements = $("embed, object, select, iframe");
 			$elements.each(function() {
 				var $this = $(this);
-				$this.css("visibility", $this.attr("data-mapbox-visibility"));
-				$this.removeAttr("data-mapbox-visibility");
+				$this.css("visibility", $this.attr("data-jqmapbox-visibility"));
+				$this.removeAttr("data-jqmapbox-visibility");
 			});			
 		}
 		

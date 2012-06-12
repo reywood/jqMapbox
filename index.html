@@ -5,26 +5,28 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html>
 <head>
-	<title>jQuery Mapbox</title>
+	<title>jqMapbox</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="css/jquery.mapbox-0.1.css" />
+	<link rel="stylesheet" type="text/css" href="css/jqmapbox-0.1.css" />
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script type="text/javascript" src="js/jquery.mapbox-0.1.js"></script>
+	<script type="text/javascript" src="js/jqmapbox-0.1.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$(".mapbox").mapbox();
+			$(".jqmapbox").mapbox();
 		});
 	</script>
 </head>
 <body>
 
 <div id="main">
-
-	<h1>Mapbox</h1>
+	<article>
+	
+	<h1>jqMapbox</h1>
 
 	<p>
-		Mapbox is a jQuery plugin which shows a map in a modal dialog box, much like the well
+		jqMapbox is a jQuery plugin which shows a map in a modal dialog box, much like the well
 		known <a href="http://lokeshdhakar.com/projects/lightbox2/">Lightbox</a> jQuery plugin.
 	</p>
 
@@ -33,17 +35,21 @@ and open the template in the editor.
 	<h2>Example</h2>
 
 	<p>
-		Click the link below to see the Mapbox dialog in action:
+		Click the link below to see the jqMapbox dialog in action:
 	</p>
 
 	<blockquote>
-		<a class="mapbox" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=san+diego,+ca&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=56.899383,104.941406&amp;ie=UTF8&amp;hq=&amp;hnear=San+Diego,+California&amp;t=m&amp;z=11&amp;ll=32.715329,-117.157255&amp;output=embed">
-			Show map
+		<a class="jqmapbox" data-jqmapbox-caption="Google map of San Diego, CA" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=san+diego,+ca&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=56.899383,104.941406&amp;ie=UTF8&amp;hq=&amp;hnear=San+Diego,+California&amp;t=m&amp;z=11&amp;ll=32.715329,-117.157255&amp;output=embed">
+			Show Google map
+		</a>
+		<br/><br/>
+		<a class="jqmapbox" data-jqmapbox-caption="Bing map of San Diego, CA" href="http://www.bing.com/maps/embed/?lvl=11&amp;cp=32.69874264608652~-117.12665557861328&amp;sty=r&amp;draggable=true&amp;v=2&amp;dir=0&amp;where1=San+Diego%2C+CA&amp;form=LMLTEW&amp;pp=32.71569061279297~-117.1617202758789&amp;mkt=en-us&amp;emid=f3ac9b08-c026-46b9-e153-bf5a06927e39&amp;w=800&amp;h=600">
+			Show Bing map
 		</a>
 	</blockquote>
 
 	<p>
-		The following snippets were used to create this link.
+		The following snippets were used to create these links.
 	</p>
 
 	<p>
@@ -51,7 +57,13 @@ and open the template in the editor.
 	</p>
 
 	<code>
-<pre><span style="color: #007000">&lt;a</span> <span style="color: #0000C0">class=</span><span style="background-color: #fff0f0">&quot;mapbox&quot;</span> <span style="color: #0000C0">href=</span><span style="background-color: #fff0f0">&quot;https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=san+diego,+ca&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=56.899383,104.941406&amp;ie=UTF8&amp;hq=&amp;hnear=San+Diego,+California&amp;t=m&amp;z=11&amp;ll=32.715329,-117.157255&amp;output=embed&quot;</span><span style="color: #007000">&gt;</span>Show map<span style="color: #007000">&lt;/a&gt;</span></pre>
+<pre><span style="color: #007000">&lt;a</span> <span style="color: #0000C0">class=</span><span style="background-color: #fff0f0">&quot;jqmapbox&quot;</span> <span style="color: #0000C0">data-jqmapbox-caption=</span><span style="background-color: #fff0f0">&quot;Google map of San Diego, CA&quot;</span> <span style="color: #0000C0">href=</span><span style="background-color: #fff0f0">&quot;https://maps.google.com/maps?f=q&amp;amp;source=s_q&amp;amp;hl=en&amp;amp;geocode=&amp;amp;q=san+diego,+ca&amp;amp;aq=&amp;amp;sll=37.0625,-95.677068&amp;amp;sspn=56.899383,104.941406&amp;amp;ie=UTF8&amp;amp;hq=&amp;amp;hnear=San+Diego,+California&amp;amp;t=m&amp;amp;z=11&amp;amp;ll=32.715329,-117.157255&amp;amp;output=embed&quot;</span><span style="color: #007000">&gt;</span>
+	Show Google map
+<span style="color: #007000">&lt;/a&gt;</span>
+
+<span style="color: #007000">&lt;a</span> <span style="color: #0000C0">class=</span><span style="background-color: #fff0f0">&quot;jqmapbox&quot;</span> <span style="color: #0000C0">data-jqmapbox-caption=</span><span style="background-color: #fff0f0">&quot;Bing map of San Diego, CA&quot;</span> <span style="color: #0000C0">href=</span><span style="background-color: #fff0f0">&quot;http://www.bing.com/maps/embed/?lvl=11&amp;amp;cp=32.69874264608652~-117.12665557861328&amp;amp;sty=r&amp;amp;draggable=true&amp;amp;v=2&amp;amp;dir=0&amp;amp;where1=San+Diego%2C+CA&amp;amp;form=LMLTEW&amp;amp;pp=32.71569061279297~-117.1617202758789&amp;amp;mkt=en-us&amp;amp;emid=f3ac9b08-c026-46b9-e153-bf5a06927e39&amp;amp;w=800&amp;amp;h=600&quot;</span><span style="color: #007000">&gt;</span>
+	Show Bing map
+<span style="color: #007000">&lt;/a&gt;</span></pre>
 	</code>
 
 	<p>
@@ -60,12 +72,12 @@ and open the template in the editor.
 
 	<code>
 <pre>$(<span style="color: #007020">document</span>).ready(<span style="color: #008000; font-weight: bold">function</span>() {
-	$(<span style="background-color: #fff0f0">&quot;.mapbox&quot;</span>).mapbox();
+	$(<span style="background-color: #fff0f0">&quot;.jqmapbox&quot;</span>).jqmapbox();
 });</pre>
 	</code>
 
 	<p>
-		Of course, you can use any CSS class name or indeed any jQuery selector you like to target links for Mapbox-ification.
+		Of course, you can use any CSS class name or indeed any jQuery selector you like to target links for jqMapbox-ification.
 	</p>
 
 	<hr/>
@@ -73,12 +85,12 @@ and open the template in the editor.
 	<h2>Configuration</h2>
 	
 	<p>
-		The Mapbox plugin has some configurable options you can use to control the look of the modal dialog. These options are passed
-		to the <code>mapbox</code> function as a normal JSON object. For example:
+		The jqMapbox plugin has some configurable options you can use to control the look of the modal dialog. These options are passed
+		to the <code>jqmapbox</code> function as a normal JSON object. For example:
 	</p>
 	
 	<code>
-<pre>$(<span style="background-color: #fff0f0">&quot;.mapbox&quot;</span>).mapbox({
+<pre>$(<span style="background-color: #fff0f0">&quot;.jqmapbox&quot;</span>).jqmapbox({
 	overlayColor<span style="color: #303030">:</span> <span style="background-color: #fff0f0">&quot;#000&quot;</span>,
 	mapWidth<span style="color: #303030">:</span> <span style="color: #0000D0; font-weight: bold">600</span>,
 	mapHeight<span style="color: #303030">:</span> <span style="color: #0000D0; font-weight: bold">400</span>
@@ -118,7 +130,7 @@ and open the template in the editor.
 		<dd>
 			The URL of the close button image. This should be a quoted string containing a valid URL pointing to
 			the location of the image. This image shows up in the lower right corner of the dialog which the
-			user can click to close the map. Defaults to "images/mapbox-btn-close.gif".
+			user can click to close the map. Defaults to "images/jqmapbox-btn-close.gif".
 		</dd>
 		
 		<dt>resizeSpeed</dt>
@@ -134,8 +146,21 @@ and open the template in the editor.
 		</dd>
 	</dl>
 	
+	<p>
+		jqMapbox also supports an HTML attribute, which can be added to the link tag.
+	</p>
+	
+	<dl>
+		<dt>data-jqmapbox-caption</dt>
+		<dd>
+			The value of this attribute will be used as the caption for the dialog. The caption will appear underneath
+			the map.
+		</dd>
+	</dl>
+	
 	<hr/>
 	
+	</article>
 </div>
 
 </body>

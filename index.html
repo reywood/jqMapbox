@@ -33,7 +33,7 @@ and open the template in the editor.
 	<h2>Example</h2>
 
 	<p>
-		Click on the link below to see an example:
+		Click the link below to see the Mapbox dialog in action:
 	</p>
 
 	<blockquote>
@@ -67,6 +67,74 @@ and open the template in the editor.
 	<p>
 		Of course, you can use any CSS class name or indeed any jQuery selector you like to target links for Mapbox-ification.
 	</p>
+
+	<hr/>
+
+	<h2>Configuration</h2>
+	
+	<p>
+		The Mapbox plugin has some configurable options you can use to control the look of the modal dialog. These options are passed
+		to the <code>mapbox</code> function as a normal JSON object. For example:
+	</p>
+	
+	<code>
+<pre>$(<span style="background-color: #fff0f0">&quot;.mapbox&quot;</span>).mapbox({
+	overlayColor<span style="color: #303030">:</span> <span style="background-color: #fff0f0">&quot;#000&quot;</span>,
+	mapWidth<span style="color: #303030">:</span> <span style="color: #0000D0; font-weight: bold">600</span>,
+	mapHeight<span style="color: #303030">:</span> <span style="color: #0000D0; font-weight: bold">400</span>
+});</pre>
+	</code>
+	
+	<p>
+		Available configuration options are:
+	</p>
+	
+	<dl>
+		<dt>mapWidth</dt>
+		<dd>
+			The width of the map shown in the dialog. This should be any reasonable integer value. Note that this
+			value controls the width of the actual map, not the width of the dialog. Defaults to 800.
+		</dd>
+		
+		<dt>mapHeight</dt>
+		<dd>
+			The height of the map shown in the dialog. This should be any reasonable integer value. Note that this
+			value controls the height of the actual map, not the height of the dialog. Defaults to 600.
+		</dd>
+		
+		<dt>overlayColor</dt>
+		<dd>
+			The color of the overlay shown behind the dialog. This should be a quoted string representing
+			any valid CSS color value (e.g. "#888", "#000000", "rgb(128, 128, 128)"). Defaults to black.
+		</dd>
+		
+		<dt>overlayOpacity</dt>
+		<dd>
+			The opacity of the overlay shown behind the dialog. This should be a floating point number
+			between 0.0 and 1.0. Defaults to 0.8.
+		</dd>
+		
+		<dt>imageBtnClose</dt>
+		<dd>
+			The URL of the close button image. This should be a quoted string containing a valid URL pointing to
+			the location of the image. This image shows up in the lower right corner of the dialog which the
+			user can click to close the map. Defaults to "images/mapbox-btn-close.gif".
+		</dd>
+		
+		<dt>resizeSpeed</dt>
+		<dd>
+			The duration of the resize animation when the dialog is opening. This should be an integer value
+			representing the number of milliseconds for the duration. Defaults to 400.
+		</dd>
+		
+		<dt>keyToClose</dt>
+		<dd>
+			A keyboard key that, when pressed, closes the dialog. This should be a quoted, one character string.
+			Defaults to "x". Note that the ESC key will also close the dialog, regardless of this setting.
+		</dd>
+	</dl>
+	
+	<hr/>
 	
 </div>
 

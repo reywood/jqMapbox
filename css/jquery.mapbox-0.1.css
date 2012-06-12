@@ -27,6 +27,7 @@
 	width: 250px;
 	height: 250px;
 	margin: 0 auto;
+	padding: 0;
 	-webkit-border-top-left-radius: 5px;
 	-webkit-border-top-right-radius: 5px;
 	-moz-border-radius-topleft: 5px;
@@ -36,6 +37,7 @@
 }
 
 #mapbox-iframe-container-padding {
+	margin: 0;
 	padding: 10px;
 }
 

@@ -13,12 +13,11 @@
 	var defaults = {
 			overlayColor:		"#000",
 			overlayOpacity:		0.8,
-			iframeWidth:		800,
-			iframeHeight:		600,
-			imageBtnClose:		"/images/mapbox-btn-close.gif",
-			dialogPadding:		10,		// Value of padding for #mapbox-iframe-container-padding in CSS file
-			resizeSpeed:		400,	// Duration of animation when opening in miliseconds
-			keyToClose:			"x"		// Keyboard shortcut to close the mapbox dialog. ESC will also close dialog.
+			mapWidth:			800,
+			mapHeight:			600,
+			imageBtnClose:		"images/mapbox-btn-close.gif",
+			resizeSpeed:		400,
+			keyToClose:			"x"
 		};
 	
 	$.fn.mapbox = function(settings) {
@@ -30,7 +29,7 @@
 			e.preventDefault();
 			
 			mapUrl = $(this).attr("href");
-			mapCaption = $(this).attr("data-caption");
+			mapCaption = $(this).attr("data-mapbox-caption");
 			showMapbox();
 			
 			return false;
@@ -57,11 +56,7 @@
 			var html =	'<div id="jquery-mapbox-overlay"></div>' +
 						'<div id="jquery-mapbox">' +
 							'<div id="mapbox-iframe-container">' +
-								'<div id="mapbox-iframe-container-padding">' +
-									'<iframe id="mapbox-iframe" src="/blank.html" ' +
-										'width="' + settings.iframeWidth + '" height="' + settings.iframeHeight + '" ' +
-										'scrolling="no" frameBorder="0" border="0" style="border: 0;"></iframe>' +
-								'</div>' +
+								'<div id="mapbox-iframe-container-padding"></div>' +
 							'</div>' +
 							'<div id="mapbox-footer">' +
 								'<div id="mapbox-caption"></div>' +
@@ -123,8 +118,8 @@
 		};
 		
 		var animateResizingMapbox = function() {
-			var newWidth = (settings.iframeWidth + (settings.dialogPadding * 2));
-			var newHeight = (settings.iframeHeight + (settings.dialogPadding * 2));
+			var newWidth = settings.mapWidth + getHorizontalPadding();
+			var newHeight = settings.mapHeight + getVerticalPadding();
 			
 			$("#mapbox-iframe-container").animate({
 					width: newWidth,
@@ -137,12 +132,25 @@
 				});
 
 			$("#mapbox-footer").css({
-				width: settings.iframeWidth
+				width: settings.mapWidth
 			});
+		};
+		
+		var getHorizontalPadding = function() {
+			var $container = $("#mapbox-iframe-container-padding");
+			return parseInt($container.css("padding-left"), 10) + parseInt($container.css("padding-right"), 10);
+		};
+		
+		var getVerticalPadding = function() {
+			var $container = $("#mapbox-iframe-container-padding");
+			return parseInt($container.css("padding-top"), 10) + parseInt($container.css("padding-bottom"), 10);
 		};
 
 		var showIframe = function() {
-			$('#mapbox-iframe').attr("src", mapUrl);
+			$("#mapbox-iframe-container-padding").html('<iframe id="mapbox-iframe" src="' + mapUrl + '" ' +
+										'width="' + settings.mapWidth + '" height="' + settings.mapHeight + '" ' +
+										'scrolling="no" frameBorder="0" border="0" style="border: 0;"></iframe>');
+			
 			enableKeyboardNavigation();
 		};
 		
